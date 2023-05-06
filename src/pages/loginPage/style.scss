@@ -1,0 +1,35 @@
+@import '../../css/palette.scss';
+
+%flexItem{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.root {
+  @extend %flexItem; 
+  margin: auto;
+  width: 100vw;
+  height: 100vh;
+  background-image: url('https://images.pexels.com/photos/139306/pexels-photo-139306.jpeg?cs=srgb&dl=pexels-fwstudio-139306.jpg&fm=jpg');
+  .wrapper {
+    @extend %flexItem;
+    background-color: rgb(227, 236, 244);
+    border: 5px solid $primary-main;
+    width: 640px;
+    padding: 10px;
+    box-shadow: 8px 7px 10px rgb(58, 58, 58);
+    border-radius: 10px;
+  }
+  .input-el {
+    width: 60%;
+  }
+  .btn-el {
+    border-radius: 25px;
+    height: 50px;
+    width: 150px;
+    margin: 25px 0;
+  }
+}
+

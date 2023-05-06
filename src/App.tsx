@@ -1,19 +1,17 @@
-import { Routes, Route, Link } from 'react-router-dom'
-
-import Home from './pages/home';
-import Wardrobe from './pages/wardrobe';
+import React, { useState } from 'react';
+import { Routes, Route, Redirect, Switch } from 'react-router-dom';
+import LoginPage from './pages/loginPage/loginPage';
+import Wardrobe from './pages/wardrobe/wardrobe';
+import './App.scss'
 
 
 function App() {
+
   return (
     <>
-      <header>
-        <Link to="/">Home</Link>
-        <Link to="/wardrobe">Wardrobe</Link>
-      </header>
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/wardrobe" element={<Wardrobe />} />
+        <Route path="/" element={<LoginPage />} />
+        <Route path="wardrobe" element={<Wardrobe />} />
       </Routes>
     </>
   );
