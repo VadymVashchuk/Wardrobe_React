@@ -1,0 +1,39 @@
+.wardrobe-wrapper {
+  width: 100vw;
+  height: 100vh;
+  padding: 20px;
+  background-image: url('https://img.freepik.com/premium-photo/watercolor-background-grey-watercolour-painting-textured-design-white-paper-background_7190-3250.jpg?w=2000');
+}
+
+.main-title {
+  text-align: center;
+}
+
+.header{
+display: flex;
+justify-content: space-between;
+margin-bottom: 10px;
+}
+
+.item-img {
+  width: 70px;
+  height: 70px;
+}
+
+.MuiDataGrid-root .MuiDataGrid-cell:focus-within {
+  outline: none !important;
+}
+
+.css-15548ga-MuiDataGrid-root .MuiDataGrid-columnSeparator {
+  display: none !important;
+}
+
+.MuiDataGrid-columnHeader:focus-within {
+  outline: none !important;
+}
+
+.header-icon {
+  * {
+    color: white;
+  }
+}

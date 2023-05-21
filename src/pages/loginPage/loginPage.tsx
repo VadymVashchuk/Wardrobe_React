@@ -1,25 +1,24 @@
 import React, { useState } from 'react';
-import './style.scss';
 import { Box, Typography, TextField, Button } from '@mui/material';
-import { useNavigate, Link } from 'react-router-dom';
 import { signInWithEmailAndPassword } from '@firebase/auth';
 import { auth } from '../../firebase';
 
-const LoginPage = (props) => {
+import './style.scss';
+
+const LoginPage = (props:{logInStatus:Boolean, setLogInStatus:Function }) => {
+  const {logInStatus, setLogInStatus} = props
+
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
-  const navigate = useNavigate();
 
   const LogIn = () => {
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         const user = userCredential.user;
-        navigate('wardrobe')
         localStorage.setItem("login", email);
-        localStorage.setItem("token", user.accessToken);
         localStorage.setItem("isLoggedIn", 'true');
+        setLogInStatus(true)
       }
       );
   }
