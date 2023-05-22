@@ -1,25 +1,24 @@
 import React, { useEffect, useState } from "react";
-import { DataGrid, GridToolbarContainer } from "@mui/x-data-grid";
+import { DataGrid } from "@mui/x-data-grid";
 import { Box, Button } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import LogoutIcon from "@mui/icons-material/Logout";
-import { onSnapshot } from "firebase/firestore";
+import { addDoc, collection, deleteDoc, doc, onSnapshot, updateDoc } from "firebase/firestore";
 import { GridActionsCellItem, GridColDef } from "@mui/x-data-grid";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/DeleteOutlined";
 
 import AddingForm from "./AddingForm/AddingForm";
-import { wardrobeCollectionRef } from "../../helper/FirebaseFunctions";
 import { Item } from "../../models/types";
-import { deleteItem } from "../../helper/FirebaseFunctions";
 import "./wardrobe.scss";
+import { db } from "../../firebase";
 
 
 const Wardrobe = (props: {
   logInStatus: Boolean;
   setLogInStatus: Function;
 }) => {
-  
+
   const columns: GridColDef[] = [
     {
       field: "name",
@@ -86,6 +85,9 @@ const Wardrobe = (props: {
     },
   ];
 
+  const usersLogin: string = localStorage.getItem("login") as string;
+  const wardrobeCollectionRef = collection(db, usersLogin);
+  
   const [rows, setRows] = useState<Item[]>([]); // ЦЕ НАШ МАСИВ З ДАНИМИ, ПРОСТО В MUI ТАК ВОНИ НАЗИВАЮТЬ ОБИЧНО - ROWS
 
   useEffect(() => {
@@ -125,6 +127,34 @@ const Wardrobe = (props: {
       setEditInputs(inputsValues);
     }
   }
+
+  //РОБОТА З FIREBASE
+
+ function deleteItem(itemId: string) {
+  const item = doc(wardrobeCollectionRef, itemId);
+  deleteDoc(item);
+}
+
+ function addNewItem(newItem: Item) {
+  addDoc(wardrobeCollectionRef, {
+    name: newItem.name,
+    color: newItem.color,
+    size: newItem.size,
+    purpose: newItem.purpose,
+    picture: newItem.picture,
+  });
+}
+
+ function editItem(itemId: string, newItem: Item) {
+  const item = doc(wardrobeCollectionRef, itemId);
+  updateDoc(item, {
+    name: newItem.name,
+    color: newItem.color,
+    size: newItem.size,
+    purpose: newItem.purpose,
+    picture: newItem.picture
+  });
+}
 
   return (
     <>
@@ -183,8 +213,9 @@ const Wardrobe = (props: {
         setAddingFormStatus={setAddingFormStatus}
         editInputs={editInputs}
         setEditInputs={setEditInputs}
-        wardrobeData={rows}
         idOfEditingItem={idOfEditingItem}
+        addNewItem={addNewItem}
+        editItem={editItem}
       />
     </>
   );

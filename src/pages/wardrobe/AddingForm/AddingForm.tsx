@@ -1,13 +1,11 @@
 import { TextField, Button, Box } from "@mui/material";
 
 import './AddingForm.scss'
-import { addNewItem, editItem } from "../../../helper/FirebaseFunctions";
-import { Item } from "../../../models/types";
 
 
-const AddingForm = (props: { addingFormStatus: string, setAddingFormStatus: Function, editInputs: string[], setEditInputs: Function, wardrobeData: Item[], idOfEditingItem: string }) => {
+const AddingForm = (props: { addingFormStatus: string, setAddingFormStatus: Function, editInputs: string[], setEditInputs: Function, idOfEditingItem: string, addNewItem: Function, editItem: Function  }) => {
 
-  const { addingFormStatus, setAddingFormStatus, editInputs, setEditInputs, wardrobeData, idOfEditingItem } = props;
+  const { addingFormStatus, setAddingFormStatus, editInputs, setEditInputs, idOfEditingItem, addNewItem, editItem } = props;
 
   const handleInputChange = (text: string, inpudIndex: number) => {
     const newInputs = [...editInputs];
