@@ -182,7 +182,7 @@ const Wardrobe = (props: {
             LOG OUT
           </Button>
         </Box>
-        <div style={{ height: 650, width: "100%" }}>
+        <div style={{ height: 630, width: "100%" }}>
           <DataGrid
             rowHeight={100}
             disableRowSelectionOnClick
