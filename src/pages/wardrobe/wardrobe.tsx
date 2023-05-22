@@ -12,6 +12,7 @@ import AddingForm from "./AddingForm/AddingForm";
 import { Item } from "../../models/types";
 import "./wardrobe.scss";
 import { db } from "../../firebase";
+import { getAuth, signOut } from "firebase/auth";
 
 
 const Wardrobe = (props: {
@@ -85,7 +86,9 @@ const Wardrobe = (props: {
     },
   ];
 
-  const usersLogin: string = localStorage.getItem("login") as string;
+  const auth = getAuth();
+
+  const usersLogin: string = auth.currentUser?.email as string;
   const wardrobeCollectionRef = collection(db, usersLogin);
   
   const [rows, setRows] = useState<Item[]>([]); // ЦЕ НАШ МАСИВ З ДАНИМИ, ПРОСТО В MUI ТАК ВОНИ НАЗИВАЮТЬ ОБИЧНО - ROWS
@@ -101,9 +104,11 @@ const Wardrobe = (props: {
   const { logInStatus, setLogInStatus } = props;
 
   const logOut = () => {
-    localStorage.removeItem("login");
-    localStorage.removeItem("isLoggedIn");
-    setLogInStatus(false);
+    signOut(auth).then(() => {
+        setLogInStatus(false)
+    }).catch((error) => {
+      window.alert('Error')
+    });
   };
 
   const [addingFormStatus, setAddingFormStatus] = useState<"add" | "edit" | "none">("none");
@@ -160,7 +165,7 @@ const Wardrobe = (props: {
     <>
       <Box className="wardrobe-wrapper">
         <div className="main-title">
-          <h1>WARDROBE OF {localStorage.getItem("login")}</h1>
+          <h1>WARDROBE OF {usersLogin}</h1>
         </div>
         <Box className="header">
           <Button

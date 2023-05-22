@@ -15,9 +15,6 @@ const LoginPage = (props:{logInStatus:Boolean, setLogInStatus:Function }) => {
   const LogIn = () => {
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
-        const user = userCredential.user;
-        localStorage.setItem("login", email);
-        localStorage.setItem("isLoggedIn", 'true');
         setLogInStatus(true)
       }
       );
